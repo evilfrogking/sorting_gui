@@ -5,7 +5,7 @@ import random
 NUM_OF_BARS = 20
 DELAY = 200
 SHAPE_COLOR = "pink"
-BOARDER_COLOR = "black"
+BOARDER_COLOR = "blue"
 
 
 root = tk.Tk()
@@ -18,9 +18,7 @@ def bubble_sort(canvas, shape_id_list):
 
     Args:
         lst (list): _description_
-    
-    >>> bubble_sort([1,0,0,-12,3,37,16,96,5])
-    [-12,0,0,1,3,5,16,37,96]
+
     """
     n = len(shape_id_list)
 
@@ -30,15 +28,15 @@ def bubble_sort(canvas, shape_id_list):
         swapped = False
         for i in range(1, n):
             if shape_id_list[i-1] > shape_id_list[i]:
-                temp = shape_id_list[i]
-                shape_id_list[i]= shape_id_list[i-1]
-                shape_id_list[i-1] = temp
-    print(shape_id_list)
+                shape_id_list[i-1], shape_id_list[i] = shape_id_list[i], shape_id_list[i-1]
+                swap_pos(shape_id_list[i-1], shape_id_list[i])
+                swapped = True
+    print("shape id list:", shape_id_list)
 
 
 def create_bars(canvas):
     """Create 10 bars in a tkinter canvas widget, and return a list containing their IDs.
-  
+
     Args:
         canvas (tk.Canvas): The canvas on which the bars will be drawn.
     
@@ -50,7 +48,7 @@ def create_bars(canvas):
     BAR_GAP = 15      # The gap between each bar
     MIN_HEIGHT = 10   # The minimum height a bar can have
     MAX_HEIGHT = 125  # The maximum height a bar can have
-    X_OFFSET = 10     # The x-coordinate for the bars' left edge
+    X_OFFSET = 15     # The x-coordinate for the bars' left edge
     Y_OFFSET = 10     # The y-coordinate for the bars' top edge
 
     bar_id_list = []
@@ -79,12 +77,26 @@ def create_bars(canvas):
         canvas.create_text(x_text, y_text, text=f"{random_height}")
 
     return bar_id_list
+
 # TODO: a function for moving the rectangles each time they are swapped in the bubble sort function
+
+
+def swap_pos(pos01, pos02):
+    """need to get the x coords of the bars i was to swap
+
+    Args:
+        pos01 (_type_): _description_
+        pos02 (_type_): _description_
+    """
+    canvas.move(pos01, x_10-x_00, 0)
+    canvas.move(pos02, x_01-x_11, 0)
+
 bar_list = create_bars(canvas)
+print("bar list:", bar_list)
 sort_button = tk.Button(
         root,
         text="Sort",
-        command=lambda: bubble_sort(canvas, bar_list)
+        command=lambda: bubble_sort(canvas, bar_list) # does this work?
         )
 
 canvas.grid(column=0, row=0)
@@ -92,3 +104,4 @@ sort_button.grid(column=0, row=2)
 
 
 root.mainloop()
+
