@@ -33,7 +33,7 @@ def bubble_sort(canvas, shape_id_list):
                 temp = shape_id_list[i]
                 shape_id_list[i]= shape_id_list[i-1]
                 shape_id_list[i-1] = temp
-    return shape_id_list
+    print(shape_id_list)
 
 
 def create_bars(canvas):
@@ -57,6 +57,7 @@ def create_bars(canvas):
     for count in range(NUM_OF_BARS):
         # Create a random height
         random_height = random.randint(MIN_HEIGHT, MAX_HEIGHT)
+        print(random_height)
 
         bar_id = canvas.create_rectangle(
                                         # x0
